@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/button.css" />
+		<style type="text/css">
+			*{
+				padding: 0;
+				margin: 0;
+			}
+			html{
+				width: 100%;  
+			    height: 100%;  
+			    overflow-x:hidden;   
+			    overflow-y:auto;
+			}
+			body{
+				width: 100%;  
+                min-height: 100%; 
+				background-image:url(img/houtai_bg.png);
+				background-repeat: no-repeat;
+				background-position: center;
+                background-size: cover;
+                overflow: hidden;
+                display: flex;display: -webkit-flex;align-items: center;
+			}
+			
+		</style>
+		<title>login</title>
+	</head>
+	<body>
+		<div class="container">
+			<div class="row" style="margin-bottom: 10px;">
+				<div class="col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
+				    <img src="img/flower_top.png" width="100%" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-8 col-sm-12">
+					<div class="container" >
+						<div class="row" >
+							<ul class="nav nav-pills">
+								<li class="active" >
+				                	<a id="verify_code">验证码登录</a>
+				                </li>
+								<li >
+				                	<a id="qr_code">二维码登录</a>
+				               </li>
+				            </ul>
+						</div>
+						<div class="row" style="background: #5CB85C;margin-top: 10px;" id="verify_content">
+							<div class="col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
+								<div style="margin-top: 50px;margin-bottom: 10px;text-align: center;">
+	                               <input class="form-control" placeholder="请输入帐号"/>								
+								</div>
+								<div style="margin-bottom: 10px;text-align: center;">
+									<input class="form-control" placeholder="请输入密码"/>
+								</div>
+								<div style="margin-bottom: 10px;text-align: center;">
+									<input class="form-control" placeholder="请输入验证码"/>
+								</div>
+								<div style="margin-bottom: 50px;text-align: center;">
+									<div>
+									<button class="form-control button button-capitalize" style="margin-bottom: 10px;color:#985F0D" id="get_verify_code">获取验证码</button>
+									<button class="form-control button button-action">登录</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row" style="margin-top: 10px;display: none;" id="qr_content">
+							<div class="col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
+							    <img src="img/invite.jpg" width="100%" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row" style="margin-top: 40px;">
+				<div class="footer">
+					<div style="font-size:13px;color:white;width: 100%;">
+							<p align="center">©2018&#12288;花美美</p>	
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script  src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	    <script>
+	    	$("#qr_code").click(function(e){
+	    		$(this).parent("li").siblings("li").removeClass("active");	    		
+	    		$(this).parent("li").addClass("active");
+	    		$("#qr_content").css("display","block");
+	    		$("#verify_content").css("display","none");
+	    	})
+	    	$("#verify_code").click(function(e){
+	    		$(this).parent("li").siblings("li").removeClass("active");	    		
+	    		$(this).parent("li").addClass("active");
+	    		$("#qr_content").css("display","none");
+	    		$("#verify_content").css("display","block");
+	    	})
+	    	var maxTime =120;
+	    	var timer;
+	    	var get_verify_code = "获取验证码";
+	    	var $get_verify_code = $("#get_verify_code");
+	    	/*倒计时*/
+	    	function countDown(){
+	    		if (maxTime>=0) {
+	    			$get_verify_code.html(maxTime);	    			
+	    			$get_verify_code.attr("disabled",true);
+	    			--maxTime;
+	    		}else{
+	    			clearInterval(timer);
+	    			$get_verify_code.attr("disabled",false);
+	    			$get_verify_code.html(get_verify_code);
+	    		}
+	    		
+	    	}
+	    	$get_verify_code.click(function(){
+	    		timer = setInterval(countDown,1000);
+	    	})
+	    </script>
+	</body>
+</html>
